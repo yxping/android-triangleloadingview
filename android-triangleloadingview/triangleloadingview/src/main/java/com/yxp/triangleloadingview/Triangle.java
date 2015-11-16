@@ -31,6 +31,7 @@ public class Triangle{
 
     public Triangle(int bx, int by, int rotateDegree, int topColor, int bgColor) {
         this.length = TriangleLoadingView.LENGTH;
+        this.rate = 3 * length / 40;
         this.ax = bx - length;
         this.ay = by;
         this.bx = bx;
