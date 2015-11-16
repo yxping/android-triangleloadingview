@@ -4,11 +4,11 @@ A loadingview that imitates the loadingview on the alipay app, with six differen
 ![](https://github.com/yxping/android-triangleloadingview/raw/master/show2.gif) <br>
 # Usage
 1.include the procject 
-```
+``` gradle
 compile project(':triangleloadingview')
 ```
 2.define the view in layout.xml
-```
+``` xml
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:triangle="http://schemas.android.com/apk/com.yxp.triangleloadingview"
     android:orientation="vertical" android:layout_width="match_parent"
@@ -22,8 +22,8 @@ compile project(':triangleloadingview')
         triangle:state="normal"/>
 </RelativeLayout>
 ```
-3.You can handler the changes of the view by interface
-```
+3.You can handler the changes of the view by interface, by this you can add other animation
+``` java
 public interface OnStateListener {
         void onRefreshing();
 
