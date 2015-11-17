@@ -75,6 +75,7 @@ public class TriangleLoadingView extends View {
 
     public void init(Context context, AttributeSet attrs) {
         this.context = context;
+        // get the setting from xml
         if (attrs != null) {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TriangleLoadingViewAttr, 0, 0);
             status = typedArray.getInt(R.styleable.TriangleLoadingViewAttr_state, STATUS_DYNAMIC);
@@ -84,6 +85,8 @@ public class TriangleLoadingView extends View {
         paint = new Paint();
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
+
+        // init after the width and height are measured
         this.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -110,6 +113,7 @@ public class TriangleLoadingView extends View {
         path = Triangle.SHIFT;
     }
 
+    // by this way can set the default width and height of the view
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // TODO Auto-generated method stub
@@ -151,6 +155,11 @@ public class TriangleLoadingView extends View {
         drawTriangle(canvas);
     }
 
+    /**
+     * init six vertex of hexagon
+     * @param x
+     * @param y
+     */
     protected void initTopPoints(int x, int y) {
         topPoints = new int[TRIANGLE_NUM][2];
         topPoints[0][0] = x - DISTANCE / 2;
@@ -173,6 +182,9 @@ public class TriangleLoadingView extends View {
         }
     }
 
+    /**
+     * change color
+     */
     public void switchTriangleColor() {
         for (int i = TRIANGLE_NUM - 1; i >= 0; i--) {
             colorIndex = colorIndex % TRIANGLE_NUM;
@@ -184,6 +196,9 @@ public class TriangleLoadingView extends View {
         postInvalidate();
     }
 
+    /**
+     * circularly change color
+     */
     public void startRefresh() {
         if (state == STATE_REFRESHING) return;
         if (onStateListener != null) onStateListener.onRefreshing();
@@ -203,6 +218,9 @@ public class TriangleLoadingView extends View {
         }).start();
     }
 
+    /**
+     * if need fall state, change the vertex
+     */
     protected void initFall() {
         topPoints[0][1] -= 4 * LENGTH;
         topPoints[1][1] -= 2 * LENGTH;
@@ -213,6 +231,10 @@ public class TriangleLoadingView extends View {
         isAllocateFall = true;
     }
 
+    /**
+     * fall through the length between the last point and current point
+     * @param delta
+     */
     public void fallByDelta(int delta) {
         if (state == STATE_REFRESHING || state == STATE_UP || status == STATUS_NORMAL) return;
         if (trianglesLists == null) return;
@@ -254,6 +276,10 @@ public class TriangleLoadingView extends View {
         curDes = path;
     }
 
+    /**
+     * fall through the length between the first point and current point
+     * @param length
+     */
     public void fallByLength(int length) {
         if (trianglesLists == null || status == STATUS_NORMAL) return;
         if (onStateListener != null) {
@@ -293,6 +319,9 @@ public class TriangleLoadingView extends View {
         curDes = length;
     }
 
+    /**
+     * start rise animation
+     */
     public void startRiseAnim() {
         if(state == STATE_UP || status == STATUS_NORMAL) return;
         setState(STATE_UP);

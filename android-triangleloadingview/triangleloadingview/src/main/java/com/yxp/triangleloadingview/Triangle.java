@@ -12,8 +12,11 @@ import android.graphics.Shader;
  */
 public class Triangle{
     public final static float TAN30 = 0.5773f;
+    // the shift of this triangle in the canvas after init
     public final static int SHIFT = -TriangleLoadingView.HEIGHT_DEFAULT;
+    // the moving distance to the top of this triangle
     private int dev = SHIFT;
+    // four point of the triangle include three vertex and a vertex of fan-shaped
     private int ax;
     private int ay;
     private int bx;
@@ -22,10 +25,13 @@ public class Triangle{
     private int cy;
     private int dx;
     private int dy;
+    // triangle color and fan-shaped color
     private int bgColor, topColor;
     private Path path;
+    // length of triangle
     private int length = 40;
     private int rotateDegree;
+    // radian of circular corner
     private int rate = 3;
     private LinearGradient linearGradient;
 
@@ -48,6 +54,7 @@ public class Triangle{
     }
 
     public void drawSelf(Canvas canvas, Paint paint){
+        // draw triangle with round corner
         paint.setColor(bgColor);
         path.moveTo(ax + rate, ay);
         path.lineTo(bx - rate, by);
@@ -60,6 +67,7 @@ public class Triangle{
         canvas.translate(0, dev);
         canvas.rotate(rotateDegree, bx, by);
         canvas.drawPath(path, paint);
+        // draw fan-shaped with round corner
         path.reset();
         path.moveTo(cx, cy - rate);
         path.lineTo(cx, by + rate / 2);
