@@ -4,8 +4,20 @@ A loadingview that imitates the loadingview on the alipay app, with six differen
 ![](https://github.com/yxping/android-triangleloadingview/raw/master/show2.gif) <br>
 # Usage
 1.include the procject 
+Add it in your root build.gradle at the end of repositories:
 ``` gradle
-compile project(':triangleloadingview')
+allprojects {
+	repositories {
+		...
+		maven { url "https://jitpack.io" }
+	}
+}
+```
+Step 2. Add the dependency
+``` gradle
+dependencies {
+        compile 'com.github.yxping:android-triangleloadingview:v0.0.1'
+}
 ```
 2.define the view in layout.xml
 ``` xml
